@@ -12,8 +12,12 @@ set(CMAKE_CXX_STANDARD 17)
 # initalize pico sdk
 pico_sdk_init()
 
-add_executable(chiba main.c)
+# add executable and link sdk library
+add_executable(chiba src/main.c)
 target_link_libraries(chiba pico_stdlib)
+
+# additional configuration
 pico_add_extra_outputs(chiba)
 pico_enable_stdio_usb(chiba 1)
 pico_enable_stdio_uart(chiba 0)
+
