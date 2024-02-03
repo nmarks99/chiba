@@ -16,7 +16,6 @@ pico_sdk_init()
 add_executable(chiba)
 target_sources(chiba PUBLIC
     ${CMAKE_CURRENT_LIST_DIR}/src/main.c
-    ${CMAKE_CURRENT_LIST_DIR}/src/usb_descriptors.c
 )
 
 # headers are also in src/
@@ -25,13 +24,12 @@ target_include_directories(chiba PUBLIC ./src/)
 # link libraries
 target_link_libraries(chiba PUBLIC
     pico_stdlib
-    pico_unique_id
-    tinyusb_device
-    tinyusb_board
+    hardware_i2c
 )
 
 # additional configuration
 pico_add_extra_outputs(chiba)
+# example_auto_set_url(chiba)
 pico_enable_stdio_usb(chiba 1)
 pico_enable_stdio_uart(chiba 0)
 
