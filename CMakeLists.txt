@@ -12,9 +12,23 @@ set(CMAKE_CXX_STANDARD 17)
 # initalize pico sdk
 pico_sdk_init()
 
-# add executable and link sdk library
-add_executable(chiba src/main.c)
-target_link_libraries(chiba pico_stdlib)
+# add executable, sources, and include dir
+add_executable(chiba)
+target_sources(chiba PUBLIC
+    ${CMAKE_CURRENT_LIST_DIR}/src/main.c
+    ${CMAKE_CURRENT_LIST_DIR}/src/usb_descriptors.c
+)
+
+# headers are also in src/
+target_include_directories(chiba PUBLIC ./src/)
+
+# link libraries
+target_link_libraries(chiba PUBLIC
+    pico_stdlib
+    pico_unique_id
+    tinyusb_device
+    tinyusb_board
+)
 
 # additional configuration
 pico_add_extra_outputs(chiba)
